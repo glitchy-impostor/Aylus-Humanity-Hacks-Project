@@ -102,6 +102,10 @@ body, html, .App, #root, .outer {
   padding: 0 1rem;
 }
 
+.event_time {
+  padding: 0 1rem; 
+}
+
 .card_btn {
   padding: 1rem;
   font-family: inherit;

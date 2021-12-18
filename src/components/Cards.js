@@ -6,8 +6,9 @@ const Card = (props) => {
             <div className='card_body'>
                 <h2 className='card_title'>{props.title}</h2>
                 <p className='card_description'>{props.description}</p>
+                <p className='event_time'>{props.time}</p>
             </div>
-            <button className='card_btn'>View Event</button>
+            <button className='card_btn'>Sign Up</button>
         </div>
     );
 }

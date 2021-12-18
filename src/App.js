@@ -6,30 +6,13 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Login from "./components/login";
 import SignUp from "./components/signup";
 import CurrentEvents from './components/currentEvents';
+import NavBar from './components/navbar';
 
 function App() {
 
   return (<Router>
     <div className="App">
-      <nav className="navbar navbar-expand-lg navbar-light fixed-top">
-        <div className="container">
-          <Link className="navbar-brand" to={"/sign-in"}>RemoteStack</Link>
-          <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <ul className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link className="nav-link" to={"/sign-in"}>Sign in</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to={"/sign-up"}>Sign up</Link>
-              </li>
-              <li className='nav-item'>
-                <Link className='nav-link' to={'/current-events'}>Current Events</Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-
+      <NavBar/>
       <div className="outer">
         <div className="inner">
           <Switch>
