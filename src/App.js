@@ -5,8 +5,10 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import Login from "./components/login";
 import SignUp from "./components/signup";
+import Home from "./components/home";
 
 function App() {
+
   return (<Router>
     <div className="App">
       <nav className="navbar navbar-expand-lg navbar-light fixed-top">
@@ -31,6 +33,7 @@ function App() {
             <Route exact path='/' component={Login} />
             <Route path="/sign-in" component={Login} />
             <Route path="/sign-up" component={SignUp} />
+            <Route path="/home" component={Home} />
           </Switch>
         </div>
       </div>
