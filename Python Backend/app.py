@@ -1,7 +1,9 @@
-from flask import Flask, request, render_template, session, redirect, jsonify, send_from_directory
+
+# A very simple Flask Hello World app for you to get started with...
+from flask import Flask, request, jsonify#, render_template, session, redirect, send_from_directory
 from flask_sqlalchemy import SQLAlchemy#, BaseQuery
-import hashlib, random, math, #time, threading, json
-from sqlalchemy import or_, and_
+import hashlib, random#, math, #time, threading, json
+from sqlalchemy import and_ #, or_
 from datetime import date
 #import requests
 
@@ -15,9 +17,9 @@ app.config['SECRET_KEY'] = 'dcvbhjuygfvbnjm,.hnbvcxswdfdertgfvbnnjhgbvfcerty6765
 class users(db.Model):
     __tablename__ = "users"
     email_address = db.Column(db.VARCHAR(128), primary_key=True)
-    password = db.Column(db.VARCAHR(1000), nullable=False)
-    name = db.Column(db.VARCAHR(100), nullable=False)
-    interests = db.Column(db.VARCAHR(500), nullable=False) # interest1#interest2#
+    password = db.Column(db.VARCHAR(900), nullable=False)
+    name = db.Column(db.VARCHAR(100), nullable=False)
+    interests = db.Column(db.VARCHAR(500), nullable=False) # interest1#interest2#
     base_location = db.Column(db.VARCHAR(500), nullable=False)
     base_lat = db.Column(db.Integer(), nullable=False)
     base_long = db.Column(db.Integer(), nullable=False)
@@ -26,7 +28,7 @@ class users(db.Model):
 
 class currentLogins(db.Model):
     __tablename__ = "currentLogins"
-    random_key = db.Column(db.VARCAHR(10), primary_key=True)
+    random_key = db.Column(db.VARCHAR(10), primary_key=True)
     doa = db.Column(db.VARCHAR(10), nullable=False)
     email_address = db.Column(db.VARCHAR(128), nullable=False)
     def __repr__(self):
@@ -362,3 +364,5 @@ def event_signup_api():
 
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=8080, threaded=True, debug=True)
+
+#DB URI=  mysql://aylushacksprj:aylusTeam1234@aylushacksprj.mysql.pythonanywhere-services.com/aylushacksprj$aylusDB1
