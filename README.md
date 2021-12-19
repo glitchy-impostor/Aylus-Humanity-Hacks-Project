@@ -2,6 +2,8 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+Trashure Cove allows users to organize community events to help save the environment. Users can buy and sell used items as well as schedule meetups between clients! The website provides authentication by email and password to ensure the identity of users.
+
 ## Available Scripts
 
 In the project directory, you can run:
