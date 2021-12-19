@@ -23,7 +23,7 @@ const Registration = () => {
     return (
       <Redirect
         to={{
-          pathname: "/homepage",
+          pathname: "/",
           state: { showToast: true }
         }}
       />
