@@ -8,7 +8,6 @@ const Donate = () => {
 
   const onCardClick = (company) => {
     setRedirect(company);
-    // window.location.href = "/schedule";
   }
 
   if (redirect !== '') {
