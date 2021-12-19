@@ -4,25 +4,25 @@ const Login = () => {
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
-        // const jq = window.$;
-        // let email_address = '123@abc.com';
-        // let password = 'abc123A'; //replace these with actual vals later
-        // jq.ajax({
-        //     url: '/api/login',
-        //     type: 'POST',
-        //     data: {'username': email_address, 'password': password},
-        //     success: function(res){
-        //     if(res.conf == 0){
-        //         document.cookie = `doa=${res.doa}; path=/`;
-        //         document.cookie = `random_key=${res.randomKey}; path=/`;
-        //         // redirect page here
-        //     }else if(res.conf == 1){
-        //         alert('You entered the wrong password. Enter the correct password to log in!');
-        //     }else if(res.conf == 2){
-        //         alert('The Email Address Entered is not registered. Sign Up or use a registered address!');
-        //     }
-        //     }
-        // })
+        const jq = window.$;
+        let email_address = documnet.getElementById('email').value;
+        let password = document.getElementById('password').value; //replace these with actual vals later
+        jq.ajax({
+            url: '/api/login',
+            type: 'POST',
+            data: {'username': email_address, 'password': password},
+            success: function(res){
+             if(res.conf == 0){
+                 document.cookie = `doa=${res.doa}; path=/`;
+                 document.cookie = `random_key=${res.randomKey}; path=/`;
+                 window.location.href = "/donate";
+             }else if(res.conf == 1){
+                 alert('You entered the wrong password. Enter the correct password to log in!');
+             }else if(res.conf == 2){
+                 alert('The Email Address Entered is not registered. Sign Up or use a registered address!');
+             }
+             }
+         })
         window.location.href = "/donate";
     }
 
@@ -35,12 +35,12 @@ const Login = () => {
 
                 <div className="form-group">
                     <label>Email</label>
-                    <input type="email" className="form-control" placeholder="Enter email" />
+                    <input id="email" type="email" className="form-control" placeholder="Enter email" />
                 </div>
 
                 <div className="form-group">
                     <label>Password</label>
-                    <input type="password" className="form-control" placeholder="Enter password" />
+                    <input id="password" type="password" className="form-control" placeholder="Enter password" />
                 </div>
 
                 <div className="form-group">
