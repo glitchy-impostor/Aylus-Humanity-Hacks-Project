@@ -14,7 +14,7 @@ const NavBar = () => {
                 <Link className='nav-link' to={'/donate'}>Donate</Link>
               </li>
               <li>
-                <Link className='nav-link' to={'/add-event'}>Add Event</Link>
+                <Link className='nav-link' to={'/add-event'}>Host Event</Link>
               </li>
               <li>
                 <Link className='nav-link' to={'/marketplace'}>Marketplace</Link>

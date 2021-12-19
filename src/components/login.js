@@ -5,7 +5,7 @@ const Login = () => {
     const onSubmitHandler = (e) => {
         e.preventDefault();
         const jq = window.$;
-        let email_address = documnet.getElementById('email').value;
+        let email_address = document.getElementById('email').value;
         let password = document.getElementById('password').value; //replace these with actual vals later
         jq.ajax({
             url: '/api/login',

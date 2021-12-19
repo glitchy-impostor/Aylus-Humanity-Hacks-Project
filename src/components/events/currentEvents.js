@@ -22,17 +22,19 @@ const CurrentEvents = () => {
 					<h2>Events</h2>
 					<h4>Activities Going On</h4>
 					<div className='wrapper'>
-	    					{data.map(d => (
-	    						<Card 
-							title=d.name 
-							description=d.description 
-							date=d.date
-							creator=d.organiser
-							location=d.location
-							btn="Sign Up"/>
-	    					))}
-	   					/*
-						<Card 
+            {data.map(d => {
+				      return (
+                <Card 
+                  title={d.name}
+                  description={d.description} 
+                  date={d.date}
+                  creator={d.organiser}
+                  location={d.location}
+                  btn="Sign Up"/>
+              )
+            })}
+	   					
+						{/* <Card 
 							title='Tree Plantr' 
 							description='A tree planting meetup' 
 							date="11-25-2022"
@@ -52,7 +54,7 @@ const CurrentEvents = () => {
 							date="1-5-2022"
 							creator='Shannon Lee'
 							location='Seattle, Washington'
-							btn="Sign Up"/>*/
+							btn="Sign Up"/> */}
 					</div>
 				</div>
 			</div>

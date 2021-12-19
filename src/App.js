@@ -8,11 +8,14 @@ import Login from "./components/login";
 import SignUp from "./components/signup";
 import CurrentEvents from './components/events/currentEvents';
 import Donate from './components/donate/donate';
+import Schedule from './components/donate/schedule';
 import AddEvent from './components/addEvent';
 import Registration from './components/business/registration';
 import Leaderboard from './components/leaderboard/leaderboard';
 import Marketplace from './components/marketplace/marketplace';
 import Homepage from './components/homepage/homepage';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
@@ -25,11 +28,13 @@ function App() {
         <Route path="/sign-up" component={SignUp} />
         <Route path='/current-events' component={CurrentEvents}/>
         <Route path='/donate' component={Donate}/>
+        <Route path='/schedule' component={Schedule}/>
         <Route path='/add-event' component={AddEvent}/>
         <Route path='/registration' component={Registration}/>
         <Route path='/leaderboard' component={Leaderboard}/>
         <Route path='/marketplace' component={Marketplace}/>
       </Switch>
+      <ToastContainer/>
     </div>
     
     </Router>
