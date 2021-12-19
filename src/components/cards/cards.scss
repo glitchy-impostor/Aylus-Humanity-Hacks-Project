@@ -1,0 +1,32 @@
+.card{
+    overflow: hidden; 
+    box-shadow: 0 2px 20px;
+    display: flex;
+    flex-direction: row ;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: transform 200ms ease-in;
+}
+
+.card_title {
+    padding: 1rem 0;
+}
+
+// .card_description {
+//     padding:0 1rem;
+// }
+
+.event_time {
+    padding: 0 1rem;
+    font-weight: 600;
+}
+
+.card_btn {
+    padding: 1rem;
+    font-family: inherit;
+    font-weight: bold;
+    font-size: 1rem;
+    margin: 1rem;
+    background: transparent;
+    color: red;
+}

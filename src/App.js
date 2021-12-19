@@ -8,6 +8,7 @@ import Login from "./components/login";
 import SignUp from "./components/signup";
 import CurrentEvents from './components/events/currentEvents';
 import Donate from './components/donate/donate';
+import AddEvent from './components/addEvent';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
         <Route path="/sign-up" component={SignUp} />
         <Route path='/current-events' component={CurrentEvents}/>
         <Route path='/donate' component={Donate}/>
+        <Route path='/add-event' component={AddEvent}/>
       </Switch>
     </div>
     

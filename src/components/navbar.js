@@ -7,17 +7,15 @@ const NavBar = () => {
           <Link className="navbar-brand" to={"/sign-in"}>RemoteStack</Link>
           <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link className="nav-link" to={"/sign-in"}>Sign in</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to={"/sign-up"}>Sign up</Link>
-              </li>
+        
               <li className='nav-item'>
                 <Link className='nav-link' to={'/current-events'}>Current Events</Link>
               </li>
               <li className='nav-item'>
                 <Link className='nav-link' to={'/donate'}>Donate</Link>
+              </li>
+              <li>
+                <Link className='nav-link' to={'/add-event'}>Add Event</Link>
               </li>
             </ul>
           </div>
