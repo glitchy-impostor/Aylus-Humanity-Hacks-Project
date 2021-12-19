@@ -24,11 +24,11 @@ const CurrentEvents = () => {
 					<div className='wrapper'>
 	    					{data.map(d => (
 	    						<Card 
-							title=d.name 
-							description=d.description 
-							date=d.date
-							creator=d.organiser
-							location=d.location
+							title={d.name}
+							description={d.description}
+							date={d.date}
+							creator={d.organiser}
+							location={d.location}
 							btn="Sign Up"/>
 	    					))}
 	   					/*
