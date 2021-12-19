@@ -123,7 +123,7 @@ def create_uid():
 def user_validation(doa, random_key):
     validate_user = currentLogins.query.get(random_key)
     if validate_user:
-        if validate_user.date_of_addition == doa: return validate_user.email_address
+        if validate_user.doa == doa: return validate_user.email_address
         else: return 'False'
     else: return 'False'
 
@@ -159,12 +159,13 @@ def signup_api():
         name = request.form['name']
         interests = request.form['interests']
         base_location = request.form['base_location']
-        base_lat = request.form['base_lat']
-        base_long = request.form['base_log']
+        base_lat = int(request.form['base_lat'])
+        base_long = int(request.form['base_long'])
         user_check = users.query.get(email_address)
         if user_check:
             return jsonify({'conf': 1})
         else:
+            print('a')
             add = users(email_address=email_address, name=name, interests=interests,base_location=base_location, base_lat=base_lat, base_long=base_long, password=hashlib.sha256(password.encode()).hexdigest())
             db.session.add(add)
             uid = create_uid()
@@ -172,6 +173,7 @@ def signup_api():
             addition = currentLogins(random_key=uid, doa=doa, email_address=email_address)
             db.session.add(addition)
             db.session.commit()
+            print('b')
             return jsonify({'conf': 0, 'random_key': uid, 'doa': doa})
 
 
@@ -184,11 +186,11 @@ def add_items_api():
         mrp = request.form['mrp']
         random_key = request.form['random_key']
         doa = request.form['doa']
-        seller = request.form['seller']
+        #seller = request.form['seller']
         img_addr = request.form['img_addr']
         location = request.form['location']
-        lat = request.form['lat']
-        long = request.form['long']
+        lat = int(request.form['lat'])
+        long = int(request.form['long'])
         contact_info = request.form['contact_info']
         #AUTH
         seller = user_validation(doa, random_key)
@@ -206,7 +208,7 @@ def get_item_api():
         id = request.form['id']
         item = items.query.get(id)
         if item:
-            return jsonify({'conf': 0, 'name': item.name, 'brand': item.brand, 'description': item.description, 'mrp': item.mrp, "seller": item.seller, 'img_addr': item.img_addr, 'location': item.location, 'lat': item.lat, 'long': item.long, 'contact_info': item.contact_info})
+            return jsonify({'conf': 0, 'name': item.name, 'brand': item.brand, 'description': item.description, 'mrp': item.mrp, "seller": item.seller, 'img_addr': item.img_addr, 'location': item.location, 'lat': item.latitude, 'long': item.longitude, 'contact_info': item.contact_info})
         else:
             return jsonify({'conf': 1})
 
