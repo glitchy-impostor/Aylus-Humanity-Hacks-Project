@@ -30,24 +30,16 @@
       let email_address = '1234@abc.com';
       let password = '1234abcA';
       let name = "Someone";
-      let interests = 'Baseball#Designing#';
-      let base_location = 'San Francisco';
-      let base_lat = 12322;
-      let base_long = 1332;
       jq.ajax({
         url: '/api/signup',
         type: 'POST',
-        data: {'email_address': email_address, 'password': password, 'name':name, 'interests': interests, 'base_location': base_location, 'base_lat': base_lat, 'base_long': base_long},
+        data: {'email_address': email_address, 'password': password, 'name':name},
         success: function(res){
           console.log(res);
           if(res.conf == 0){
             document.cookie = `doa=${res.doa}; path=/`;
-            document.cookie = `random_key=${res.randomKey}; path=/`;
-            document.cookie = `storeList=${res.store_list}; path=/`;
+            document.cookie = `random_key=${res.randomKey}; path=/`
             //Redirect Here
-            //return_redirect_url = '/add/user-details';
-            //setTimeout(function(){document.getElementById('link-to-be-clicked').click();}, 10);
-            //redirect_url.set('/');
           }else if(res.conf == 1){
             alert('Email Address is already registered. Sign up with another Email or Login instead!');
           }
@@ -68,6 +60,7 @@
       let contact_info = "ABC";
       let cookieData = decodeURIComponent(document.cookie).split('; ');
       let m;
+      let condition = 0; //0 or 1 => 0 == Resell | 1 == Recycle
       for(m in cookieData){
         if(cookieData[m].includes('random_key=')){
           random_key = cookieData[m].replace('random_key=', '');
@@ -79,7 +72,7 @@
         jq.ajax({
           url: '/api/add/items',
           type: 'POST',
-          data: {'name': name, 'brand': brand, 'description': description, 'mrp': mrp, 'random_key': random_key, 'doa':doa, 'location': location, 'lat': lat, 'long': long, 'contact_info': contact_info},
+          data: {'name': name, 'brand': brand, 'description': description, 'mrp': mrp, 'random_key': random_key, 'doa':doa, 'location': location, 'contact_info': contact_info, 'condition': condition},
           success: function(res){
             if(res.conf == 0){
               alert('Item Successfully Added!');
@@ -105,7 +98,7 @@
         data: {'id': id},
         success: function(res){
           if(res.conf == 0){
-            item_data = {'name': res.name, 'brand': res.brand, 'description': res.description, 'mrp': res.mrp, 'seller': res.seller, 'img_addr': res.img_addr, 'location': res.location, 'lat': res.lat, 'long': res.long, 'contact_info': res.contact_info, 'seller_name': res.seller_name},
+            item_data = {'name': res.name, 'brand': res.brand, 'description': res.description, 'mrp': res.mrp, 'seller': res.seller, 'location': res.location, 'lat': res.lat, 'long': res.long, 'contact_info': res.contact_info, 'seller_name': res.seller_name},
           }else{
             alert('The Item You Are Looking For Does Not Exist!');
           }
@@ -129,16 +122,12 @@
       let description = 'Event Description';
       let date = '19-12-2021';
       let time = '12:00';
-      let time_zone = 'EST';
-      let wall = 2; //Wall ID;
       let location = 'Area Name, City';
-      let lat = 20042;
-      let long = 1383;
       if(random_key != '' && doa != ''){
         jq.ajax({
           url: '/api/create/even',
           type: 'POST',
-          data: {'random_key': random_key, 'doa': doa, 'name':name, 'description': description, 'date':date, 'time':time, 'time_zone': time_zone, 'wall':wall, 'location':location, 'lat': lat, 'long': long},
+          data: {'random_key': random_key, 'doa': doa, 'name':name, 'description': description, 'date':date, 'time':time, 'location':location},
           success: function(res){
             if(res.conf == 0){
               alert('Event has successfully been Created!');
@@ -187,6 +176,17 @@
       }
     }
 
+    function get_leaderboard_data(){
+      let data = [];
+      jq.ajax({
+        url:'/api/get/leaderboard',
+        type: 'GET',
+        success: function(res){
+          data = res.data;
+        }
+      })
+    }
+    /*
     function create_wall(){
       let random_key = '';
       let doa = '';
@@ -279,6 +279,7 @@
         }
       })
     }
+    */
   </script>
 </body>
 </html>
