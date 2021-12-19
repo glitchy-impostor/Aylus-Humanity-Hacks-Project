@@ -34,7 +34,7 @@ const Schedule = (props) => {
       return (
         <Redirect
           to={{
-            pathname: "/donate",
+            pathname: "/",
             state: { showToast: true }
           }}
         />

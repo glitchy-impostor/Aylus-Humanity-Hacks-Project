@@ -15,7 +15,9 @@ const Card = (props) => {
           <h4 className='card_creator'>{props.creator}</h4>
           <p className='card_description'>{props.description}</p>
           <p className='event_date'>{props.date}</p>
-          <li className='event_time'>{props.time}</li>
+          {(props.time !== undefined) && 
+            <li className='event_time'>{props.time}</li>
+          }
           <p className='event_location'>{props.location}</p>
         </div>
         <button className='card_btn'>{props.btn}</button>

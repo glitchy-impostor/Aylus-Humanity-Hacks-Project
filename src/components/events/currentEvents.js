@@ -36,6 +36,7 @@ const CurrentEvents = () => {
 							btn="Sign Up"/>
             ))}
 						<Card
+              img='https://compote.slate.com/images/c465d192-5e36-4533-90fc-e198da3f061a.jpeg?width=780&height=520&rect=1560x1040&offset=0x0'
 							title='Tree Plantr'
 							description='A tree planting meetup'
 							date="11-25-2022"
@@ -43,6 +44,7 @@ const CurrentEvents = () => {
 							location='Yosemite National Park, California'
 							btn="Sign Up"/>
 						<Card
+              img='https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dHJvcGljYWwlMjBiZWFjaHxlbnwwfHwwfHw%3D&w=1000&q=80'
 							title='Ocean Cleanup'
 							description='An ocean cleanup meetup'
 							date='12-19-2021'
@@ -50,7 +52,8 @@ const CurrentEvents = () => {
 							location='New Delhi, India'
 							btn="Sign Up"/>
 						<Card
-							title='Tree Plantr'
+              img='https://communityimpact.com/wp-content/uploads/2016/12/Fotolia_112023896_Subscription_XXL.jpg'
+							title='Nature Cleanup'
 							description='A tree planting meetup'
 							date="1-5-2022"
 							creator='Shannon Lee'
