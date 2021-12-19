@@ -1,0 +1,284 @@
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+  <script>
+    const jq = window.$;
+    function login(){
+      let email_address = '123@abc.com';
+      let password = 'abc123A'; //replace these with actual vals later
+      jq.ajax({
+        url: '/api/login',
+        type: 'POST',
+        data: {'username': email_address, 'password': password},
+        success: function(res){
+          if(res.conf == 0){
+            document.cookie = `doa=${res.doa}; path=/`;
+            document.cookie = `random_key=${res.randomKey}; path=/`;
+            // redirect page here
+          }else if(res.conf == 1){
+            alert('You entered the wrong password. Enter the correct password to log in!');
+          }else if(res.conf == 2){
+            alert('The Email Address Entered is not registered. Sign Up or use a registered address!');
+          }
+        }
+      })
+    }
+
+    function signup(){
+      let email_address = '1234@abc.com';
+      let password = '1234abcA';
+      let name = "Someone";
+      let interests = 'Baseball#Designing#';
+      let base_location = 'San Francisco';
+      let base_lat = 12322;
+      let base_long = 1332;
+      jq.ajax({
+        url: '/api/signup',
+        type: 'POST',
+        data: {'email_address': email_address, 'password': password, 'name':name, 'interests': interests, 'base_location': base_location, 'base_lat': base_lat, 'base_long': base_long},
+        success: function(res){
+          console.log(res);
+          if(res.conf == 0){
+            document.cookie = `doa=${res.doa}; path=/`;
+            document.cookie = `random_key=${res.randomKey}; path=/`;
+            document.cookie = `storeList=${res.store_list}; path=/`;
+            //Redirect Here
+            //return_redirect_url = '/add/user-details';
+            //setTimeout(function(){document.getElementById('link-to-be-clicked').click();}, 10);
+            //redirect_url.set('/');
+          }else if(res.conf == 1){
+            alert('Email Address is already registered. Sign up with another Email or Login instead!');
+          }
+        }
+      })
+    }
+
+    function add_items(){
+      let name = 'Chem Textbook';
+      let brand = 'Selina Publications';
+      let description = 'Amazing Textbook for Class 10';
+      let mrp = '5';
+      let random_key = '';
+      let doa = '';
+      let location = 'Area, City';
+      let lat = 22321;
+      let long = 233212;
+      let contact_info = "ABC";
+      let cookieData = decodeURIComponent(document.cookie).split('; ');
+      let m;
+      for(m in cookieData){
+        if(cookieData[m].includes('random_key=')){
+          random_key = cookieData[m].replace('random_key=', '');
+        }else if(cookieData[m].includes('doa')){
+          doa = cookieData[m].replace('doa=', '');
+        }
+      }
+      if(random_key != '' && doa != ''){
+        jq.ajax({
+          url: '/api/add/items',
+          type: 'POST',
+          data: {'name': name, 'brand': brand, 'description': description, 'mrp': mrp, 'random_key': random_key, 'doa':doa, 'location': location, 'lat': lat, 'long': long, 'contact_info': contact_info},
+          success: function(res){
+            if(res.conf == 0){
+              alert('Item Successfully Added!');
+              //Redirection Code Here
+            }else{
+              alert('You are not logged in! Please Log in to add Items!');
+              //Redirect to login Page
+            }
+          }
+        })
+      }else{
+        alert('You are not logged in! Please Log in to add Items!');
+        //Redirect to login Page
+      }
+    }
+
+    function get_item(){
+      let id = '1';
+      let item_data = {}
+      jq.ajax({
+        url: '/api/get/item',
+        type: 'POST',
+        data: {'id': id},
+        success: function(res){
+          if(res.conf == 0){
+            item_data = {'name': res.name, 'brand': res.brand, 'description': res.description, 'mrp': res.mrp, 'seller': res.seller, 'img_addr': res.img_addr, 'location': res.location, 'lat': res.lat, 'long': res.long, 'contact_info': res.contact_info, 'seller_name': res.seller_name},
+          }else{
+            alert('The Item You Are Looking For Does Not Exist!');
+          }
+        }
+      })
+    }
+
+    function create_event(){
+      let random_key = '';
+      let doa = '';
+      let cookieData = decodeURIComponent(document.cookie).split('; ');
+      let m;
+      for(m in cookieData){
+        if(cookieData[m].includes('random_key=')){
+          random_key = cookieData[m].replace('random_key=', '');
+        }else if(cookieData[m].includes('doa')){
+          doa = cookieData[m].replace('doa=', '');
+        }
+      }
+      let name = 'Event Name';
+      let description = 'Event Description';
+      let date = '19-12-2021';
+      let time = '12:00';
+      let time_zone = 'EST';
+      let wall = 2; //Wall ID;
+      let location = 'Area Name, City';
+      let lat = 20042;
+      let long = 1383;
+      if(random_key != '' && doa != ''){
+        jq.ajax({
+          url: '/api/create/even',
+          type: 'POST',
+          data: {'random_key': random_key, 'doa': doa, 'name':name, 'description': description, 'date':date, 'time':time, 'time_zone': time_zone, 'wall':wall, 'location':location, 'lat': lat, 'long': long},
+          success: function(res){
+            if(res.conf == 0){
+              alert('Event has successfully been Created!');
+              // Redirect Here!
+            }else{
+              alert('You are not logged in! Please Log in to create Events!');
+            }
+          }
+        })
+      }else{
+        alert('You are not logged in! Please Log in to create Events!');
+      }
+    }
+
+    function signup_events(){
+      let random_key = '';
+      let doa = '';
+      let cookieData = decodeURIComponent(document.cookie).split('; ');
+      let m;
+      for(m in cookieData){
+        if(cookieData[m].includes('random_key=')){
+          random_key = cookieData[m].replace('random_key=', '');
+        }else if(cookieData[m].includes('doa')){
+          doa = cookieData[m].replace('doa=', '');
+        }
+      }
+      let event_id = '1';
+      if(random_key != '' && doa != ''){
+        jq.ajax({
+          url: '/api/event/signup',
+          type: 'POST',
+          data: {'random_key': random_key, 'doa': doa, 'event_id': event_id},
+          success: function(res){
+            if(res.conf == 0){
+              alert('You have Successfully Signed Up For the Event!');
+              // Redirection Here!
+            }else{
+              alert('You are not logged in! Please Log in to sign up for Events!');
+              // Redirect to Login Page
+            }
+          }
+        })
+      }else{
+        alert('You are not logged in! Please Log in to sign up for Events!');
+        // Redirect to Login Page
+      }
+    }
+
+    function create_wall(){
+      let random_key = '';
+      let doa = '';
+      let cookieData = decodeURIComponent(document.cookie).split('; ');
+      let m;
+      for(m in cookieData){
+        if(cookieData[m].includes('random_key=')){
+          random_key = cookieData[m].replace('random_key=', '');
+        }else if(cookieData[m].includes('doa')){
+          doa = cookieData[m].replace('doa=', '');
+        }
+      }
+      let name = 'name';
+      let base_location = 'Area Name, City';
+      let base_lat = 123433;
+      let base_long = 1343;
+      let description = 'Description For Chat Wall';
+      if(random_key != '' && doa != ''){
+        jq.ajax({
+          url: '/api/create/wall',
+          type: 'POST',
+          data: {'random_key': random_key, 'doa': doa, 'name':name, 'base_location': base_location, 'base_lat': base_lat, 'base_long': base_long, 'description': description},
+          success: function(res){
+            if(res.conf == 0){
+              alert('You have Successfully created a Chat Wall');
+              // Redirection Here!
+            }else{
+              alert('You are not logged in! Please Log in to create Chat Walls!');
+              // Redirect to Login Page Here!
+            }
+          }
+        })
+      }else{
+        alert('You are not logged in! Please Log in to create Chat Walls!');
+        // Redirect to Login Page Here!
+      }
+    }
+
+    function send_wall_msg(){
+      let random_key = '';
+      let doa = '';
+      let cookieData = decodeURIComponent(document.cookie).split('; ');
+      let m;
+      for(m in cookieData){
+        if(cookieData[m].includes('random_key=')){
+          random_key = cookieData[m].replace('random_key=', '');
+        }else if(cookieData[m].includes('doa')){
+          doa = cookieData[m].replace('doa=', '');
+        }
+      }
+      let wallId = 2;
+      let msg = 'Hey!';
+      if(random_key != '' && doa != ''){
+        jq.ajax({
+          url: '/api/send/wallMsg',
+          type: 'POST',
+          data: {'random_key': random_key, 'doa': doa, 'msg': msg, 'wallId': wallId },
+          success: function(res){
+            if(res.conf == 0){
+              alert('Wall Msg has Been Sent!');
+              // Do Something Here!
+            }else{
+              alert('You are not logged in! Please Log in to send messages on Chat Walls!');
+              // Redirect to Login Page Here!
+            }
+          }
+        })
+      }else{
+        alert('You are not logged in! Please Log in to send messages on Chat Walls!');
+        // Redirect to Login Page Here!
+      }
+    }
+
+    function get_wall_msgs(){
+      let wallId = 2;
+      let chat_data = [];
+      let number_of_msgs = 0;
+      jq.ajax({
+        url: '/api/get/wallMsgs',
+        type: 'POST',
+        data: {'wallId': wallId},
+        success: function(res){
+          if(res.conf == 0){
+            chat_data = res.data;
+            number_of_msgs = res.number;
+          }else{
+            alert('This Chat Wall Does not Exist.. Try Checking for messages of another chat wall!');
+            //Redirect Here!
+          }
+        }
+      })
+    }
+  </script>
+</body>
+</html>
