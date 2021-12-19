@@ -1,29 +1,31 @@
-from flask import Flask, request, render_template, session, redirect, jsonify, send_from_directory
+
+# A very simple Flask Hello World app for you to get started with...
+from flask import Flask, request, jsonify, render_template#, render_template, session, redirect, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy#, BaseQuery
-import hashlib, random, math, time, threading, json
+import hashlib, random#, math, time, threading, json
 from sqlalchemy import or_, and_
 from datetime import date
 import requests
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='',static_folder='build',template_folder='build')
 db = SQLAlchemy(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://aylushacksprj:aylusTeam1234@aylushacksprj.mysql.pythonanywhere-services.com/aylushacksprj$aylusDB1'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://aylushacksprj:aylusTeam1234@aylushacksprj.mysql.pythonanywhere-services.com/aylushacksprj$aylusDB2'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 app.config['SECRET_KEY'] = 'dcvbhjuygfvbnjm,.hnbvcxswdfdertgfvbnnjhgbvfcerty67654324567uhbvcxz'
 
 class users(db.Model):
     __tablename__ = "users"
     email_address = db.Column(db.VARCHAR(128), primary_key=True)
-    password = db.Column(db.VARCAHR(1000), nullable=False)
-    name = db.Column(db.VARCAHR(100), nullable=False)
+    password = db.Column(db.VARCHAR(1000), nullable=False)
+    name = db.Column(db.VARCHAR(100), nullable=False)
     points = db.Column(db.Integer(), nullable=False)
     def __repr__(self):
         return '<Task %r>' %self.id
 
 class currentLogins(db.Model):
     __tablename__ = "currentLogins"
-    random_key = db.Column(db.VARCAHR(10), primary_key=True)
+    random_key = db.Column(db.VARCHAR(10), primary_key=True)
     doa = db.Column(db.VARCHAR(10), nullable=False)
     email_address = db.Column(db.VARCHAR(128), nullable=False)
     def __repr__(self):
@@ -99,18 +101,23 @@ def create_uid():
 def user_validation(doa, random_key):
     validate_user = currentLogins.query.get(random_key)
     if validate_user:
-        if validate_user.date_of_addition == doa: return validate_user.email_address
+        if validate_user.doa == doa: return validate_user.email_address
         else: return 'False'
     else: return 'False'
 
+@app.route('/sign-in')
+@app.route('/sign-up')
+@app.route('/home')
+@app.route('/current-events')
+@app.route('/donate')
 @app.route('/')
 def index():
-    return 'HI'
+    return render_template('index.html')
 
 @app.route('/api/login', methods=['POST'])
 def login_api():
     if request.method == 'POST':
-        email_address = request.form['email_address']
+        email_address = request.form['username']
         password = request.form['password']
         hashed_pass = hashlib.sha256(password.encode()).hexdigest()
         user = users.query.get(email_address)
@@ -133,6 +140,7 @@ def signup_api():
         email_address = request.form['email_address']
         password = request.form['password']
         name = request.form['name']
+        user_check = users.query.get(email_address)
         if user_check:
             return jsonify({'conf': 1})
         else:
@@ -140,6 +148,7 @@ def signup_api():
             db.session.add(add)
             uid = create_uid()
             doa = str(date.today())
+            db.session.commit()
             addition = currentLogins(random_key=uid, doa=doa, email_address=email_address)
             db.session.add(addition)
             db.session.commit()
@@ -216,6 +225,7 @@ def create_event_api():
         latB = lat.split('.')[1]
         longB = long.split('.')[1]
         #Owner AUTH
+        print(owner)
         if owner != 'False':
             add = events(owner=owner, name=name, description=description, date=date, time=time, location=location, latH=latH, longH=longH, latB=latB, longB=longB)
             db.session.add(add)
@@ -252,6 +262,7 @@ def search_events_api():
         latDown = r.json()[0]['boundingbox'][0]
         longUp = r.json()[0]['boundingbox'][2]
         longDown = r.json()[0]['boundingbox'][3]
+        print(latUp, latDown, longUp, longDown)
         latUpH = latUp.split('.')[0]
         latUpB = latUp.split('.')[1]
         latDownH = latDown.split('.')[0]
@@ -261,12 +272,14 @@ def search_events_api():
         longDownH = longDown.split('.')[0]
         longDownB = longDown.split('.')[1]
         eventList = events.query.filter(and_(or_(events.latH == latUpH, events.latH == latDownH)), or_(events.longH == longUpH, events.longH==longDownH)).all()
+        testList = events.query.all()
         act_list = []
+        print(eventList, testList[0].latH, testList[0].longH, latUpH, longUpH, latDownH, longDownH)
         for event in eventList:
-            if (int(event.latB) >= int(latDownB) and int(event.latB) <= int(latUpB)) and (int(event.longB) >= int(longDownB) and int(event.longB) <= int(longUpB)):
-                wall = walls.query.get(event.wall)
-                user = users.query.get(event.owner)
-                act_list.append({'id': event.id, 'name': event.name, 'description': event.description,'organiser':users.name , 'date': event.date, 'time':event.time, 'time_zone': event.time_zone, 'wall': event.wall,"wall_name": wall.name, 'location': event.location, 'latitude': (event.latH + '.' + event.latB),'longitude': (event.longH + '.' + event.longB) })
+            print(event.latB, event.longB)
+            #wall = walls.query.get(event.wall)
+            user = users.query.get(event.owner)
+            act_list.append({'id': event.id, 'name': event.name, 'description': event.description,'organiser':user.name , 'date': event.date, 'time':event.time, 'location': event.location, 'latitude': (event.latH + '.' + event.latB),'longitude': (event.longH + '.' + event.longB) })
         return jsonify({'conf': 0, 'data': act_list})
 
 @app.route('/api/edit/event', methods=['POST'])
@@ -426,3 +439,5 @@ def get_leaderboard_api():
     return jsonify({'conf': 0, 'data': data, 'n': n})
 if __name__ == "__main__":
     app.run(host='127.0.0.1', port=8080, threaded=True, debug=True)
+
+#DB URI=  mysql://aylushacksprj:aylusTeam1234@aylushacksprj.mysql.pythonanywhere-services.com/aylushacksprj$aylusDB1
