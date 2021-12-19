@@ -13,6 +13,7 @@ import AddEvent from './components/addEvent';
 import Registration from './components/business/registration';
 import Leaderboard from './components/leaderboard/leaderboard';
 import Marketplace from './components/marketplace/marketplace';
+import AddItem from './components/marketplace/addItems';
 import Homepage from './components/homepage/homepage';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -33,6 +34,7 @@ function App() {
         <Route path='/registration' component={Registration}/>
         <Route path='/leaderboard' component={Leaderboard}/>
         <Route path='/marketplace' component={Marketplace}/>
+        <Route path='/add-item' component={AddItem}/>
       </Switch>
       <ToastContainer/>
     </div>

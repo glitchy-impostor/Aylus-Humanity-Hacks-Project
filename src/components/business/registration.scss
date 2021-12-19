@@ -1,0 +1,26 @@
+.donate{
+  text-align: left;
+  margin: 20px;
+  background: #ffffff;
+  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+  padding: 40px 55px 45px 55px;
+  border-radius: 15px;
+  transition: all .3s;
+
+  h3 {
+    color:#888888;
+  }
+  h4 {
+    color:#888888;
+    text-transform: uppercase;
+    font-size: 16px;
+  }
+
+  .wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 16rem));
+    gap: 2rem; 
+    justify-content: center;
+    margin-top: 30px;
+  }
+}

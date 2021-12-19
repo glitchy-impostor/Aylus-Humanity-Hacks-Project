@@ -1,5 +1,6 @@
 import React from "react";
-const Login = () => {
+import "./addItems.scss"
+const AddItems = () => {
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
@@ -44,7 +45,7 @@ const Login = () => {
     }
 
     return (
-      <div className="outer">
+      <div className="outer add-items">
         <div className="inner">
             <form onSubmit={onSubmitHandler}>
 
@@ -98,4 +99,4 @@ const Login = () => {
 
         );
     }
-export default Login;
+export default AddItems;

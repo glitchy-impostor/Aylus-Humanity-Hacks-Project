@@ -39,46 +39,44 @@ const AddEvents = () => {
           }
     }
     return (
-        <div className="outer">
-        <div className="inner">
-            <form onSubmit={onSubmitHandler}>
+      <div className="outer">
+      <div className="inner">
+          <form onSubmit={onSubmitHandler}>
 
-                <h3>Add Event!</h3>
+            <h3>Add Event!</h3>
 
-                <div className="form-group">
-                    <label>Event Name</label>
-                    <input id="name" type="name" className="form-control" placeholder="Enter Event Name" />
-                </div>
-                /*
-                <div className="form-group">
-                    <label>Creator</label>
-                    <input  type="name" className="form-control" placeholder="Enter name of the event creator or organizer!" />
-                </div>
-                */
-                <div className="form-group">
-                    <label>Location</label>
-                    <input id="location" type="name" className="form-control" placeholder="Enter general location of event! (General Area Will Do)"/>
-                </div>
+            <div className="form-group">
+                <label>Event Name</label>
+                <input id="name" type="name" className="form-control" placeholder="Enter Event Name" />
+            </div>
+            <div className="form-group">
+                <label>Creator</label>
+                <input  type="name" className="form-control" placeholder="Enter name of the event creator or organizer!" />
+            </div>
+            <div className="form-group">
+                <label>Location</label>
+                <input id="location" type="name" className="form-control" placeholder="Enter general location of event! (General Area Will Do)"/>
+            </div>
 
-                <div className="form-group">
-                    <label>Date</label>
-                    <input id="date" type="text" className="form-control" placeholder="Enter Date of Event" />
-                </div>
-        
-                <div className="form-group">
-                    <label>Time</label>
-                    <input id="type" type="text" className="form-control" placeholder="Enter Time of Event in 24 Hour Format" />
-                </div>
+            <div className="form-group">
+                <label>Date</label>
+                <input id="date" type="text" className="form-control" placeholder="Enter Date of Event" />
+            </div>
+    
+            <div className="form-group">
+                <label>Time</label>
+                <input id="type" type="text" className="form-control" placeholder="Enter Time of Event in 24 Hour Format" />
+            </div>
 
-                <div className="form-group">
-                    <label>Event Description</label>
-                    <input id="description" type="text" className="form-control" placeholder="Enter a description of the event! (Also include a way to contact you here)" />
-                </div>
+            <div className="form-group">
+                <label>Event Description</label>
+                <input id="description" type="text" className="form-control" placeholder="Enter a description of the event! (Also include a way to contact you here)" />
+            </div>
 
-                    <button type="submit" className="btn btn-dark btn-lg btn-block">Add Event!</button>
-                    
-                
-            </form>
+            <button type="submit" className="btn btn-dark btn-lg btn-block">Add Event!</button>
+                  
+              
+          </form>
         </div>
         </div>
        
